@@ -1,0 +1,22 @@
+name: ci
+run-name: Workflow ${{ github.workflow }} triggered by @${{ github.actor }}
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Pull git repository
+        uses: actions/checkout@v4.1.5
+      - name: Set up JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: 21.0.3
+          distribution: liberica
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3.3.2
+      - name: Run tests
+        run: ./gradlew clean test

@@ -1,0 +1,26 @@
+name: cd
+run-name: Workflow ${{ github.workflow }} triggered by @${{ github.actor }}
+on:
+  push:
+    branches:
+      - main
+jobs:
+  publish-package:
+    name: publish-package
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Pull git repository
+        uses: actions/checkout@v4.1.5
+      - name: Set up JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: 21.0.3
+          distribution: liberica
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3.3.2
+      - name: Publish package
+        run: ./gradlew publish
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ github.token }}

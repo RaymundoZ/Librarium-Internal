@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.raymundo.librarium"
-version = "0.0.1"
+version = "0.0.2"
 extra["jwtVersion"] = "0.12.5"
 
 java {
